@@ -13,10 +13,20 @@ const prefix = css`
 module.exports = mainView
 
 function mainView (state, emit) {
+  let list
+  if (state.list.length === 0) {
+    list = html`<p>Loading...</p>`
+  } else {
+    list = html`
+      <ul>
+        ${state.list.map(item => html`<li>${item}</li>`)}
+      </ul>
+    `
+  }
   return html`
     <body class=${prefix}>
       <h1>hypercore-protocol-proxy test</h1>
-      Test.
+      ${list}
     </body>
   `
 }
