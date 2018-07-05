@@ -1,0 +1,43 @@
+{
+  "name": "hypercore-protocol-proxy-test",
+  "version": "0.0.1",
+  "description": "Trying out hypercore-protocol-proxy-test in a web page",
+  "author": "Jim Pick (@jimpick)",
+  "main": "server/index.js",
+  "bin": {
+    "dat-shopping-list": "./server/index.js"
+  },
+  "scripts": {
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimpick/hypercore-protocol-proxy-test.git"
+  },
+  "dependencies": {
+    "brfs": "^2.0.0",
+    "budo": "^11.3.2",
+    "choo": "^6.12.0",
+    "compression": "^1.7.2",
+    "dat-colors": "^3.5.1",
+    "express": "^4.16.3",
+    "express-ws": "^4.0.0",
+    "hypercore-protocol-proxy": "jimpick/hypercore-protocol-proxy#proxy-stream-option",
+    "nocache": "^2.0.0",
+    "pretty-hash": "^1.0.1",
+    "random-access-memory": "^3.0.0",
+    "sheetify": "^7.3.2",
+    "sheetify-nested": "^1.0.2",
+    "thunky": "^1.0.2",
+    "to-buffer": "^1.1.1",
+    "websocket-stream": "^5.1.2",
+    "hypercore-crypto": "^1.0.0",
+    "dat-swarm-defaults": "^1.0.1",
+    "discovery-swarm": "^5.1.1",
+    "hyperdrive": "^9.14.0"
+  },
+  "engines": {
+    "node": "9.x"
+  },
+  "license": "MIT"
+}
