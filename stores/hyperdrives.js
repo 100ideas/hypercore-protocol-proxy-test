@@ -9,18 +9,32 @@ module.exports = store
 function store (state, emitter) {
   state.list = []
 
-  const key = '72671c5004d3b956791b6ffca7f05025d62309feaf99cde04c6f434189694291'
-  const archive = hyperdrive(ram, key, {sparse: true, sparseMetadata: true})
+  // const key = '72671c5004d3b956791b6ffca7f05025d62309feaf99cde04c6f434189694291'
+  const key = 'c9ad0cd90c94f2df867414823395901428d6b20fb67a2b4d3f74ea4b4f702d90'
+  // const archive = hyperdrive(ram, key, {sparse: true, sparseMetadata: true, live: true})
+  const archive = hyperdrive(ram, key, {live: true})
   const cancelConnection = connectToGateway(archive)
   archive.ready(() => {
     archive.metadata.update(() => {
       console.log('Length', archive.metadata.length)
-      archive.readdir('/media/content', (err, list) => {
+      // archive.readdir('/media/content', (err, list) => {
+      archive.readdir('/', (err, list) => {
         if (err) throw err
         state.list = list
+        console.log("archive.metadata.update() ", list)
         emitter.emit('render')
-        cancelConnection()
+        // cancelConnection()
       })
+    })
+  })
+  archive.on('update', (x) => {
+    console.log("archive.on.update")
+    archive.readdir('/', (err, list) => {
+      if (err) throw err
+      state.list = list
+      console.log("archive.metadata.update() ", list)
+      emitter.emit('render')
+      // cancelConnection()
     })
   })
 }

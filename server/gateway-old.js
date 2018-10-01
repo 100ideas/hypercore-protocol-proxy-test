@@ -10,27 +10,6 @@ const discoverySwarm = require('discovery-swarm')
 const protocol = require('hypercore-protocol')
 const through2 = require('through2')
 
-const Dat = require('dat-node')
-const datOptions = {
-  latest: true, 
-  live: true,
-  sparse: true,
-  upload: false
-}
-
-let datStream
-Dat('dat-test-4', datOptions, function (err, dat) {
-  console.log('replicating: dat://', dat.key.toString('hex'))
-
-  if (err) throw err
-  let progress = dat.importFiles({watch: true}) // with watch: true, there is no callback
-  progress.on('put', function (src, dest) {
-    console.log('importer:put ', src.name)
-  })
-
-  datStream = dat.archive.replicate({live: true, latest:true, encrypt: false})
-})
-
 module.exports = gateway
 
 let instanceCounter = 0
@@ -47,17 +26,39 @@ function gateway (router) {
         const instanceId = instanceCounter++
         const key = req.params.key
         console.log('New gateway instance', instanceId, key)
-        // const discoveryKey = crypto.discoveryKey(toBuffer(key, 'hex'))
-        // const hpStream = protocol({encrypt: false})
-        // hpStream.label = 'hpStream'
-        // hpStream.on('error', err => {
-        //   console.error('Proxy stream error', instanceId, err)
-        // })
-        // const {proxy} = hyperproxy(toBuffer(key, 'hex'), {stream: hpStream})
-      
-          
+        const discoveryKey = crypto.discoveryKey(toBuffer(key, 'hex'))
+        const hpStream = protocol({encrypt: false})
+        hpStream.label = 'hpStream'
+        hpStream.on('error', err => {
+          console.error('Proxy stream error', instanceId, err)
+        })
+        const {proxy} = hyperproxy(toBuffer(key, 'hex'), {stream: hpStream})
         const wsStream = websocketStream(ws)
 
+        // Join swarm
+        const sw = discoverySwarm(swarmDefaults({
+          live: false,
+          hash: false,
+          stream: () => protocol({live: true}),
+          connect: (connection, swarmStream) => {
+            console.log('Swarm connect', instanceId)
+            connection.on('error', err => {
+              console.error('Swarm stream error', instanceId, err)
+            })
+            proxy(swarmStream, {stream: connection})
+          }
+        }))
+
+        sw.listen(0)
+        sw.join(discoveryKey)
+
+        sw.on('connection', function (peer, info) {
+          console.log('new connection', instanceId, info)
+          console.log('connected to', instanceId, sw.connections.length, 'peers')
+          peer.on('close', function () {
+            console.log('peer disconnected', instanceId)
+          })
+        })
         pump(
           wsStream,
           /*
@@ -67,8 +68,7 @@ function gateway (router) {
             cb()
           }),
           */
-          // hpStream,
-          datStream,
+          hpStream,
           /*
           through2(function (chunk, enc, cb) {
             console.log('To websocket', chunk)
@@ -79,7 +79,7 @@ function gateway (router) {
           wsStream,
           err => {
             console.log('pipe finished for', instanceId, key, err && err.message)
-            // sw.close()
+            sw.close()
           }
         )
       } catch (e) {
