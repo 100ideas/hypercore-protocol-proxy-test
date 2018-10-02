@@ -13,20 +13,34 @@ const prefix = css`
 module.exports = mainView
 
 function mainView (state, emit) {
+  console.dir(state)
   let list
+  let footer
   if (state.list.length === 0) {
-    list = html`<p>Loading...</p>`
+    list = html`<section id="main"><p>Loading...</p></section>`
   } else {
     list = html`
-      <ul>
-        ${state.list.map(item => html`<li>${item}</li>`)}
-      </ul>
+      <section id="main">
+        <ul>
+          ${state.list.map(item => html`<li>${item}</li>`)}
+        </ul>
+        <div>
+          <h4>hello-world.txt:</h4> 
+          <pre>${state.hello}</pre>
+        </div>
+      </section>
     `
   }
+  footer = html`
+    <section id="footer">
+      <p>status: ${state.status}</p>
+    </section>
+  `
   return html`
     <body class=${prefix}>
       <h1>hypercore-protocol-proxy test</h1>
       ${list}
+      ${footer}
     </body>
   `
 }
