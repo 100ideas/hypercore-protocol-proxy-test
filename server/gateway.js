@@ -1,14 +1,7 @@
 const expressWebSocket = require('express-ws')
 const websocketStream = require('websocket-stream/stream')
 const ram = require('random-access-memory')
-const crypto = require('hypercore-crypto')
 const pump = require('pump')
-const toBuffer = require('to-buffer')
-const hyperproxy = require('hypercore-protocol-proxy')
-const swarmDefaults = require('dat-swarm-defaults')
-const discoverySwarm = require('discovery-swarm')
-const protocol = require('hypercore-protocol')
-const through2 = require('through2')
 
 const Dat = require('dat-node')
 const datOptions = {
@@ -18,18 +11,23 @@ const datOptions = {
   upload: false
 }
 
-let datStream
-Dat('dat-test-4', datOptions, function (err, dat) {
-  console.log('replicating: dat://', dat.key.toString('hex'))
+// let datStream
 
-  if (err) throw err
-  let progress = dat.importFiles({watch: true}) // with watch: true, there is no callback
-  progress.on('put', function (src, dest) {
-    console.log('importer:put ', src.name)
+let initDat = (dir) => {
+  Dat(dir, datOptions, function (err, dat) {
+    console.log('replicating: dat://', dat.key.toString('hex'))
+  
+    if (err) throw err
+    let progress = dat.importFiles({watch: true}) // with watch: true, there is no callback
+    progress.on('put', function (src, dest) {
+      console.log('importer:put ', src.name)
+    })
+  
+    return datStream = dat.archive.replicate({live: true, latest:true, encrypt: false})
   })
+}
 
-  datStream = dat.archive.replicate({live: true, latest:true, encrypt: false})
-})
+let datStream = initDat('dat-test-4')
 
 module.exports = gateway
 
@@ -46,16 +44,8 @@ function gateway (router) {
       try {
         const instanceId = instanceCounter++
         const key = req.params.key
-        console.log('New gateway instance', instanceId, key)
-        // const discoveryKey = crypto.discoveryKey(toBuffer(key, 'hex'))
-        // const hpStream = protocol({encrypt: false})
-        // hpStream.label = 'hpStream'
-        // hpStream.on('error', err => {
-        //   console.error('Proxy stream error', instanceId, err)
-        // })
-        // const {proxy} = hyperproxy(toBuffer(key, 'hex'), {stream: hpStream})
-      
-          
+        console.log(`[${instanceId}] recreating gateway for ${key}`)
+
         const wsStream = websocketStream(ws)
 
         pump(
@@ -79,7 +69,9 @@ function gateway (router) {
           wsStream,
           err => {
             console.log('pipe finished for', instanceId, key, err && err.message)
-            // sw.close()
+            // router.ws.close()
+            datStream.end()
+            datStream = initDat('dat-test-4')
           }
         )
       } catch (e) {

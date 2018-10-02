@@ -19,28 +19,28 @@ function store (state, emitter) {
   archive.ready(() => {
     archive.metadata.update(() => {
       console.log('Metadata Length:', archive.metadata.length)
-      archive.readdir('/', (err, list) => {
-        if (err) throw err
-        state.list = list
-        console.log("archive.metadata.update() ", list)
-        emitter.emit('render')
-        // cancelConnection()
-      })
-      archive.readFile('/hello-world.txt', (err, txt) => {
-        if (err) throw err
-        state.hello = txt + ''
-        console.log(`hello-world.txt:\n${txt}`)
-        emitter.emit('render')
-        // cancelConnection()
-      })
+      // archive.readdir('/', (err, list) => {
+      //   if (err) throw err
+      //   state.list = list
+      //   console.log("archive.metadata.update() ", list)
+      //   emitter.emit('render')
+      //   // cancelConnection()
+      // })
+      // archive.readFile('/hello-world.txt', (err, txt) => {
+      //   if (err) throw err
+      //   state.hello = txt + ''
+      //   console.log(`hello-world.txt:\n${txt}`)
+      //   emitter.emit('render')
+      //   // cancelConnection()
+      // })
     })
   })
   archive.on('update', (x) => {
-    console.log("archive.on.update")
+    console.log("archive.on('update')...")
     archive.readdir('/', (err, list) => {
       if (err) throw err
       state.list = list
-      console.log("archive.on('update'):", list)
+      console.log("...readdir", list)
       emitter.emit('render')
       toast("archive updated...")
       // cancelConnection()
@@ -49,7 +49,7 @@ function store (state, emitter) {
       if (err) throw err
       state.hello = (txt + '')
       toast('hello-world.txt updated')
-      console.log(`hello-world.txt:\n${txt}`)
+      console.log(`...hello-world.txt:\n${txt}`)
       emitter.emit('render')
       // cancelConnection()
     })
