@@ -17,7 +17,7 @@ let initDat = (dir) => {
   Dat(dir, datOptions, function (err, dat) {
     console.log('replicating: dat://', dat.key.toString('hex'))
   
-    if (err) throw err
+    if (err) {dat.close(); throw err}
     let progress = dat.importFiles({watch: true}) // with watch: true, there is no callback
     progress.on('put', function (src, dest) {
       console.log('importer:put ', src.name)
@@ -27,11 +27,11 @@ let initDat = (dir) => {
   })
 }
 
-let datStream = initDat('dat-test-4')
-
 module.exports = gateway
 
 let instanceCounter = 0
+
+let datStream = initDat('dat-test-4')
 
 function gateway (router) {
   return function attachWebsocket (server) {
@@ -44,7 +44,7 @@ function gateway (router) {
       try {
         const instanceId = instanceCounter++
         const key = req.params.key
-        console.log(`[${instanceId}] recreating gateway for ${key}`)
+        console.log(`[${instanceId}] recreating ws replication pipe for ${key}`)
 
         const wsStream = websocketStream(ws)
 
@@ -69,8 +69,8 @@ function gateway (router) {
           wsStream,
           err => {
             console.log('pipe finished for', instanceId, key, err && err.message)
-            // router.ws.close()
             datStream.end()
+            datStream = null // garbage collection?
             datStream = initDat('dat-test-4')
           }
         )
