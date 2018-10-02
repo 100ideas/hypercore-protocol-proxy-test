@@ -3,12 +3,14 @@ const websocketStream = require('websocket-stream/stream')
 const ram = require('random-access-memory')
 const pump = require('pump')
 
-const Dat = require('dat-node')
+// const Dat = require('dat-node')
+const Dat = require('@jimpick/dat-node')
 const datOptions = {
   latest: true, 
   live: true,
   sparse: true,
-  upload: false
+  upload: false,
+  stagingNewFormat: true
 }
 
 // let datStream
@@ -16,7 +18,8 @@ const datOptions = {
 let initDat = (dir) => {
   Dat(dir, datOptions, function (err, dat) {
     console.log('replicating: dat://', dat.key.toString('hex'))
-  
+    console.log('Local key:', dat.archive.db.local.key.toString('hex'))
+
     if (err) {dat.close(); throw err}
     let progress = dat.importFiles({watch: true}) // with watch: true, there is no callback
     progress.on('put', function (src, dest) {
@@ -31,7 +34,7 @@ module.exports = gateway
 
 let instanceCounter = 0
 
-let datStream = initDat('dat-test-4')
+let datStream = initDat('5-hyperdb-test')
 
 function gateway (router) {
   return function attachWebsocket (server) {

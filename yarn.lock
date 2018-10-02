@@ -8,6 +8,132 @@
   dependencies:
     commander "^2.15.1"
 
+"@jimpick/dat-log@^1.2.0-2":
+  version "1.2.0-2"
+  resolved "https://registry.yarnpkg.com/@jimpick/dat-log/-/dat-log-1.2.0-2.tgz#02b276bafc6d13d6d1bd4bf3b29edc9b80d99ac5"
+  dependencies:
+    "@jimpick/dat-node" "^3.5.11-4"
+    minimist "^1.2.0"
+    neat-log "^2.4.0"
+    prettier-bytes "^1.0.4"
+    random-access-memory "^3.0.0"
+
+"@jimpick/dat-node@^3.5.11-22", "@jimpick/dat-node@^3.5.11-4":
+  version "3.5.11-22"
+  resolved "https://registry.yarnpkg.com/@jimpick/dat-node/-/dat-node-3.5.11-22.tgz#aa32e7f81c472108d59dcd9c3327156eeb96ecd3"
+  dependencies:
+    "@jimpick/dat-storage" "^1.0.4-3"
+    "@jimpick/hyperdrive" "^9.14.0-1"
+    "@jimpick/hyperdrive-network-speed" "^2.1.0-2"
+    "@jimpick/hyperdrive-next" "^9.12.3-6"
+    "@jimpick/mirror-folder" "^3.0.0-1"
+    dat-ignore "^2.1.1"
+    dat-link-resolve "^2.2.0"
+    dat-swarm-defaults "^1.0.0"
+    debug "^3.1.0"
+    discovery-swarm "^5.1.2"
+    folder-walker "^3.1.0"
+    hyperdrive-http "^4.3.2"
+    multicb "^1.2.1"
+    random-access-file "^2.0.1"
+    random-access-memory "^3.0.0"
+    sparse-bitfield "^3.0.3"
+    speedometer "^1.1.0"
+    stream-each "^1.2.0"
+    untildify "^3.0.2"
+    xtend "^4.0.1"
+
+"@jimpick/dat-storage@^1.0.4-3":
+  version "1.0.4-3"
+  resolved "https://registry.yarnpkg.com/@jimpick/dat-storage/-/dat-storage-1.0.4-3.tgz#063423b2145018d02b677d3d06961360441e4493"
+  dependencies:
+    "@jimpick/hyperdrive" "^9.12.3-5"
+    append-tree "^2.0.5"
+    dat-secret-storage "^4.0.0"
+    multi-random-access "^2.0.3"
+    random-access-file "^2.0.1"
+
+"@jimpick/hyperdrive-network-speed@^2.1.0-2":
+  version "2.1.0-2"
+  resolved "https://registry.yarnpkg.com/@jimpick/hyperdrive-network-speed/-/hyperdrive-network-speed-2.1.0-2.tgz#3c7a23a9627013906a1702ddd4410136b32a9d9b"
+  dependencies:
+    debug "^3.1.0"
+    speedometer "^1.0.0"
+
+"@jimpick/hyperdrive-next@^9.12.3-6":
+  version "9.12.3-6"
+  resolved "https://registry.yarnpkg.com/@jimpick/hyperdrive-next/-/hyperdrive-next-9.12.3-6.tgz#48d8b847966be8daa0166bd17132c2ea3f53d423"
+  dependencies:
+    append-tree "^2.3.5"
+    bulk-write-stream "^1.1.3"
+    duplexify "^3.5.0"
+    from2 "^2.3.0"
+    hypercore "^6.10.4"
+    hyperdb "github:mafintosh/hyperdb#master"
+    inherits "^2.0.3"
+    is-options "^1.0.1"
+    mutexify "^1.1.0"
+    protocol-buffers-encodings "^1.1.0"
+    random-access-file "^2.0.1"
+    random-access-storage "^1.1.1"
+    sodium-universal "^2.0.0"
+    sorted-array-functions "^1.2.0"
+    stream-collector "^1.0.1"
+    stream-each "^1.2.0"
+    thunky "^1.0.2"
+    uint64be "^2.0.1"
+    unixify "^1.0.0"
+
+"@jimpick/hyperdrive@^9.12.3-5":
+  version "9.12.3-5"
+  resolved "https://registry.yarnpkg.com/@jimpick/hyperdrive/-/hyperdrive-9.12.3-5.tgz#10603b88666b13bc82b2e57115c332e09aca645c"
+  dependencies:
+    append-tree "^2.3.5"
+    bulk-write-stream "^1.1.3"
+    duplexify "^3.5.0"
+    from2 "^2.3.0"
+    hypercore "^6.10.4"
+    hyperdb "github:mafintosh/hyperdb#master"
+    inherits "^2.0.3"
+    is-options "^1.0.1"
+    mutexify "^1.1.0"
+    protocol-buffers-encodings "^1.1.0"
+    random-access-file "^2.0.1"
+    random-access-storage "^1.1.1"
+    sodium-universal "^2.0.0"
+    sorted-array-functions "^1.2.0"
+    stream-collector "^1.0.1"
+    stream-each "^1.2.0"
+    thunky "^1.0.2"
+    uint64be "^2.0.1"
+    unixify "^1.0.0"
+
+"@jimpick/hyperdrive@^9.14.0-1":
+  version "9.14.0-1"
+  resolved "https://registry.yarnpkg.com/@jimpick/hyperdrive/-/hyperdrive-9.14.0-1.tgz#075c0224c9a7749d757d4585ba475f703b5d3ce4"
+  dependencies:
+    append-tree "^2.3.5"
+    duplexify "^3.5.0"
+    from2 "^2.3.0"
+    hypercore "^6.10.4"
+    inherits "^2.0.3"
+    mutexify "^1.1.0"
+    protocol-buffers-encodings "^1.1.0"
+    random-access-file "^2.0.1"
+    sodium-universal "^2.0.0"
+    stream-collector "^1.0.1"
+    stream-each "^1.2.0"
+    thunky "^1.0.2"
+    uint64be "^2.0.1"
+    unixify "^1.0.0"
+
+"@jimpick/mirror-folder@^3.0.0-1":
+  version "3.0.0-1"
+  resolved "https://registry.yarnpkg.com/@jimpick/mirror-folder/-/mirror-folder-3.0.0-1.tgz#333ded6274ed027b37de56d66c10afbd63e27c92"
+  dependencies:
+    fd-read-stream "^1.1.0"
+    recursive-watch "^1.1.1"
+
 JSONStream@^1.0.3:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.4.tgz#615bb2adb0cd34c8f4c447b5f6512fa1d8f16a2e"
@@ -59,6 +185,12 @@ ajv@^5.3.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
+ansi-diff@^1.0.10:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ansi-diff/-/ansi-diff-1.1.1.tgz#67feeb6a24b4e5aa7f270d33d6a1b40e943bb080"
+  dependencies:
+    ansi-split "^1.0.1"
+
 ansi-regex@^0.2.0, ansi-regex@^0.2.1:
   version "0.2.1"
   resolved "http://registry.npmjs.org/ansi-regex/-/ansi-regex-0.2.1.tgz#0d8e946967a3d8143f93e24e298525fc1b2235f9"
@@ -70,6 +202,12 @@ ansi-regex@^2.0.0:
 ansi-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
+
+ansi-split@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ansi-split/-/ansi-split-1.0.1.tgz#3cab03754ab6f1d64d4ad13cd10f22fc36db4a45"
+  dependencies:
+    ansi-regex "^3.0.0"
 
 ansi-styles@2.0.1:
   version "2.0.1"
@@ -718,7 +856,7 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codecs@^1.2.0:
+codecs@^1.2.0, codecs@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/codecs/-/codecs-1.2.1.tgz#10155c751578919883bd87e425db04af86a0188c"
 
@@ -753,6 +891,10 @@ combined-stream@~1.0.6:
 commander@^2.15.1:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
+
+compare@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/compare/-/compare-2.0.0.tgz#8090b34dcb288f629e905972da69ea7a6d5922a0"
 
 component-emitter@^1.2.1:
   version "1.2.1"
@@ -969,29 +1111,6 @@ dat-link-resolve@^2.2.0:
     debug "^3.1.0"
     nets "^3.2.0"
 
-dat-node@^3.5.13:
-  version "3.5.13"
-  resolved "https://registry.yarnpkg.com/dat-node/-/dat-node-3.5.13.tgz#13e04a0983057acb41c27bfe69cd2470472cd569"
-  dependencies:
-    dat-ignore "^2.1.1"
-    dat-link-resolve "^2.2.0"
-    dat-storage "^1.1.1"
-    dat-swarm-defaults "^1.0.0"
-    debug "^3.1.0"
-    discovery-swarm "^5.1.2"
-    hyperdrive "^9.14.0"
-    hyperdrive-http "^4.3.3"
-    hyperdrive-network-speed "^2.1.0"
-    mirror-folder "^3.0.0"
-    multicb "^1.2.1"
-    random-access-file "^2.0.1"
-    random-access-memory "^3.0.0"
-    sparse-bitfield "^3.0.3"
-    speedometer "^1.1.0"
-    stream-each "^1.2.3"
-    untildify "^3.0.2"
-    xtend "^4.0.1"
-
 dat-secret-storage@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/dat-secret-storage/-/dat-secret-storage-4.0.1.tgz#b0ffe2e2628038ce18ccd2a86a79de830d535440"
@@ -999,17 +1118,7 @@ dat-secret-storage@^4.0.0:
     os-homedir "^1.0.2"
     random-access-file "^2.0.1"
 
-dat-storage@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/dat-storage/-/dat-storage-1.1.1.tgz#40e2d1e989b64bb60d0a179f993e32bbb3cb19a0"
-  dependencies:
-    append-tree "^2.0.5"
-    dat-secret-storage "^4.0.0"
-    hyperdrive "^9.1.1"
-    multi-random-access "^2.0.3"
-    random-access-file "^2.0.1"
-
-dat-swarm-defaults@^1.0.0, dat-swarm-defaults@^1.0.1:
+dat-swarm-defaults@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dat-swarm-defaults/-/dat-swarm-defaults-1.0.1.tgz#b375091617ba76b4cff071ec5c3ceb92e1ce8b69"
   dependencies:
@@ -1133,6 +1242,13 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+diffy@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/diffy/-/diffy-2.0.0.tgz#93785bcfb61e9708e9268b8f98ba622fc346a2b0"
+  dependencies:
+    ansi-diff "^1.0.10"
+    neat-input "^1.5.0"
+
 directory-index-html@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/directory-index-html/-/directory-index-html-2.1.0.tgz#4d5afc5187edba67ec6ab0e55f6422a0e2cb7338"
@@ -1148,7 +1264,7 @@ discovery-channel@^5.5.1:
     pretty-hash "^1.0.1"
     thunky "^0.1.0"
 
-discovery-swarm@^5.1.1, discovery-swarm@^5.1.2:
+discovery-swarm@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/discovery-swarm/-/discovery-swarm-5.1.2.tgz#91be73ab07836741a1151d0a872464465830b1cc"
   dependencies:
@@ -1566,6 +1682,12 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
+folder-walker@^3.1.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/folder-walker/-/folder-walker-3.2.0.tgz#98e00e59773f43416a6dcf0926d4c9436f65121d"
+  dependencies:
+    from2 "^2.1.0"
+
 for-each@^0.3.2:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
@@ -1614,7 +1736,7 @@ from2-string@^1.1.0:
   dependencies:
     from2 "^2.0.3"
 
-from2@^2.0.3, from2@^2.3.0:
+from2@^2.0.3, from2@^2.1.0, from2@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
   dependencies:
@@ -1865,13 +1987,6 @@ hypercore-crypto@^1.0.0:
     sodium-universal "^2.0.0"
     uint64be "^2.0.2"
 
-hypercore-protocol-proxy@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hypercore-protocol-proxy/-/hypercore-protocol-proxy-1.1.0.tgz#5edcb67633ef0bc0099a982546ef33698aff59e2"
-  dependencies:
-    hypercore-protocol "^6.6.4"
-    pump "^3.0.0"
-
 hypercore-protocol@^6.4.1, hypercore-protocol@^6.6.4:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/hypercore-protocol/-/hypercore-protocol-6.7.1.tgz#e0f51c8594b1ea8639a4499296f77bf96d2619d6"
@@ -1885,7 +2000,7 @@ hypercore-protocol@^6.4.1, hypercore-protocol@^6.6.4:
     sorted-indexof "^1.0.0"
     varint "^5.0.0"
 
-hypercore@^6.10.4:
+hypercore@^6.10.4, hypercore@^6.13.0:
   version "6.19.1"
   resolved "https://registry.yarnpkg.com/hypercore/-/hypercore-6.19.1.tgz#da308964d2ae717e8b477eb160482dec250033e5"
   dependencies:
@@ -1917,7 +2032,28 @@ hypercore@^6.10.4:
     unordered-array-remove "^1.0.2"
     unordered-set "^2.0.0"
 
-hyperdrive-http@^4.3.3:
+"hyperdb@github:mafintosh/hyperdb#master":
+  version "3.5.0"
+  resolved "https://codeload.github.com/mafintosh/hyperdb/tar.gz/19d01e52376a862674c7576539db0d0cbb4a23f5"
+  dependencies:
+    array-lru "^1.1.1"
+    bulk-write-stream "^1.1.3"
+    codecs "^1.2.1"
+    compare "^2.0.0"
+    hypercore "^6.13.0"
+    hypercore-protocol "^6.6.4"
+    inherits "^2.0.3"
+    mutexify "^1.2.0"
+    nanoiterator "^1.1.0"
+    protocol-buffers-encodings "^1.1.0"
+    random-access-file "^2.0.1"
+    sodium-universal "^2.0.0"
+    thunky "^1.0.2"
+    unordered-array-remove "^1.0.2"
+    unordered-set "^2.0.0"
+    varint "^5.0.0"
+
+hyperdrive-http@^4.3.2:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/hyperdrive-http/-/hyperdrive-http-4.3.3.tgz#61abcde2fdf7324dc8c894b6f88c2ce92944c818"
   dependencies:
@@ -1927,14 +2063,7 @@ hyperdrive-http@^4.3.3:
     pump "^3.0.0"
     range-parser "^1.2.0"
 
-hyperdrive-network-speed@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/hyperdrive-network-speed/-/hyperdrive-network-speed-2.1.0.tgz#e2e69d1318ec6c00605f390036584b6065330499"
-  dependencies:
-    debug "^3.1.0"
-    speedometer "^1.0.0"
-
-hyperdrive@^9.1.1, hyperdrive@^9.14.0:
+hyperdrive@^9.14.0:
   version "9.14.0"
   resolved "https://registry.yarnpkg.com/hyperdrive/-/hyperdrive-9.14.0.tgz#d91d8fc32c9594a4b477accdebae0f298d5e07b8"
   dependencies:
@@ -2338,6 +2467,10 @@ k-rpc@^4.2.1:
     randombytes "^2.0.5"
     safe-buffer "^5.1.1"
 
+keypress@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/keypress/-/keypress-0.2.1.tgz#1e80454250018dbad4c3fe94497d6e67b6269c77"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -2386,6 +2519,10 @@ levn@~0.3.0:
 lodash.memoize@~3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-3.0.4.tgz#2dcbd2c287cbc0a55cc42328bd0c736150d53e3f"
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lower-case@^1.1.1:
   version "1.1.4"
@@ -2581,13 +2718,6 @@ minizlib@^1.1.0:
   dependencies:
     minipass "^2.2.1"
 
-mirror-folder@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mirror-folder/-/mirror-folder-3.0.0.tgz#4846de151ccbada788d55e9be6bd7661cfbbee3c"
-  dependencies:
-    fd-read-stream "^1.1.0"
-    recursive-watch "^1.1.1"
-
 mixin-deep@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
@@ -2655,7 +2785,7 @@ multistream@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.5"
 
-mutexify@^1.1.0:
+mutexify@^1.1.0, mutexify@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mutexify/-/mutexify-1.2.0.tgz#45597975a2b035f56dcf61ff15cc8d73c28e7639"
 
@@ -2676,7 +2806,7 @@ nanobench@^2.1.0, nanobench@^2.1.1:
     mutexify "^1.1.0"
     pretty-hrtime "^1.0.2"
 
-nanobus@^4.2.0:
+nanobus@^4.2.0, nanobus@^4.3.3:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/nanobus/-/nanobus-4.3.4.tgz#94e9f80a091e1b35152079fc158f78d02d78312b"
   dependencies:
@@ -2714,6 +2844,13 @@ nanohtml@^1.1.0:
     normalize-html-whitespace "^0.2.0"
     through2 "^2.0.3"
     transform-ast "^2.4.0"
+
+nanoiterator@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/nanoiterator/-/nanoiterator-1.2.0.tgz#36461e246f9c52e591d8a097cea5886faec9f6af"
+  dependencies:
+    inherits "^2.0.3"
+    readable-stream "^2.3.3"
 
 nanolru@^1.0.0:
   version "1.0.0"
@@ -2772,6 +2909,20 @@ nanotiming@^7.0.0, nanotiming@^7.2.0:
   dependencies:
     nanoassert "^1.1.0"
     nanoscheduler "^1.0.2"
+
+neat-input@^1.5.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/neat-input/-/neat-input-1.8.0.tgz#bcfbb46be9026b5e9f1128c7219de53149ef9d3f"
+  dependencies:
+    keypress "^0.2.1"
+
+neat-log@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/neat-log/-/neat-log-2.4.0.tgz#19c0d86f2807c78911aae0ce977ccf403e230a6f"
+  dependencies:
+    diffy "^2.0.0"
+    lodash.throttle "^4.1.1"
+    nanobus "^4.3.3"
 
 needle@^2.2.1:
   version "2.2.4"
@@ -3151,7 +3302,7 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier-bytes@^1.0.3:
+prettier-bytes@^1.0.3, prettier-bytes@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prettier-bytes/-/prettier-bytes-1.0.4.tgz#994b02aa46f699c50b6257b5faaa7fe2557e62d6"
 
@@ -3718,7 +3869,7 @@ sodium-universal@^2.0.0:
   optionalDependencies:
     sodium-native "^2.0.0"
 
-sorted-array-functions@^1.0.0:
+sorted-array-functions@^1.0.0, sorted-array-functions@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/sorted-array-functions/-/sorted-array-functions-1.2.0.tgz#43265b21d6e985b7df31621b1c11cc68d8efc7c3"
 
@@ -3863,7 +4014,7 @@ stream-combiner2@^1.1.1:
     duplexer2 "~0.1.0"
     readable-stream "^2.0.2"
 
-stream-each@^1.2.0, stream-each@^1.2.3:
+stream-each@^1.2.0:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/stream-each/-/stream-each-1.2.3.tgz#ebe27a0c389b04fbcc233642952e10731afa9bae"
   dependencies:
