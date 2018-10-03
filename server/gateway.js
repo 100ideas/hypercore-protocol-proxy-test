@@ -66,11 +66,19 @@ function gateway (router) {
         handshakeTimeout: 8000
       })
 
-      // router.get('/#/serverkey', (req, res) => {
-      //   console.log(req.method, req.url);
-      //   res.json({serverKey: archive.key.toString('hex')})
-      //   res.end()
-      // });
+      router.ws('/serverkey', (ws, req, next) => {
+        // console.log("ws:/serverkey:", req.method, req.url);
+        ws.on('message', function(msg) {
+          console.log('ws:keysocket message received:', msg);
+        });
+        ws.send(archive.key.toString('hex'))
+        ws.close()
+        // console.log('socket', req.testing)
+        // res.json({serverKey: archive.key.toString('hex')})
+        // res.end()
+
+        // next()
+      });
 
       // router.ws('/proxy/:key', (ws, req) => {
       router.ws('/proxy/:key/:remoteKey', (ws, req) => {

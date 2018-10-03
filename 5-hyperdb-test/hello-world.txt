@@ -1,9 +1,3 @@
 hello from dat-test-4 foo
 
 don't forget to regenerate dat if you get wierd errors
-
-hello from browser write
-
-hellow from server
-hello from browser write
-hello from browser write
