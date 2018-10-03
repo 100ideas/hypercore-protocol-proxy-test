@@ -1,6 +1,7 @@
 // const hyperdrive = require('hyperdrive')
 const hyperdriveNext = require('@jimpick/hyperdrive-next')
 const ram = require('random-access-memory')
+const crypto = require('hypercore/lib/crypto')
 const connectToGateway = require('../lib/websocketGateway')
 const dumpWriters = require('../lib/dumpWriters')
 
@@ -15,50 +16,36 @@ function store (state, emitter) {
   state.archive = {}
   state.key = ''
 
-  // const key = '72671c5004d3b956791b6ffca7f05025d62309feaf99cde04c6f434189694291'
-  // const key = 'c9ad0cd90c94f2df867414823395901428d6b20fb67a2b4d3f74ea4b4f702d90'
-  // const key = '8832871692ebd9cd8182a9fc3cc58937a4599811fbf25c71bb53a4dc51228334' // 5-hyperdb-test ?
-  const key = '66cdb12b933842be01bfbbe3a6228e0dc0761ca9bf464f4d1c4105f3cfd7b504' // 5-hyperdb-test
-  // const archive = hyperdrive(ram, key, {sparse: true, sparseMetadata: true, live: true})
-  // const archive = hyperdrive(ram, key, {live: true})
-  const archive = hyperdriveNext(ram, key, {live: true})
+  // const key = 'db9373f3fdb5fe3a0ee0a3169277673f50d9fdedab028173aacccb057cade453' // 5-hyperdb-test
   // const archive = hyperdriveNext(ram, {live: true})
-  const cancelConnection = connectToGateway(archive)
-  // archive.ready(() => {
-  //   archive.metadata.update(() => {
-  //     console.log('Metadata Length:', archive.metadata.length)
-  //     archive.readdir('/', (err, list) => {
-  //       if (err) throw err
-  //       state.list = list
-  //       console.log("archive.metadata.update() ", list)
-  //       emitter.emit('render')
-  //       // cancelConnection()
-  //     })
-  //     archive.readFile('/hello-world.txt', (err, txt) => {
-  //       if (err) throw err
-  //       state.hello = txt + ''
-  //       console.log(`hello-world.txt:\n${txt}`)
-  //       emitter.emit('render')
-  //       // cancelConnection()
-  //     })
-  //   })
-  // })
-
+  // const archive = hyperdriveNext(ram, {encrypt:false, live: true})
+  
+  const {publicKey: key, secretKey} = crypto.keyPair()
+  const archive = hyperdriveNext(ram, key, {secretKey})
   archive.ready(() => {
     console.log('hyperdrive ready')
     console.log('Local key:', archive.db.local.key.toString('hex'))
-    state.archive = archive
     state.key = archive.key
-    // if (state.cancelGatewayReplication) state.cancelGatewayReplication()
-    // state.cancelGatewayReplication = connectToGateway(
-    //   archive, updateSyncStatus, updateConnecting
-    // )
-    // readShoppingList()
+    state.archive = archive
+    emitter.emit('render')
+    
+    if (state.cancelGatewayReplication) state.cancelGatewayReplication()
+    state.cancelGatewayReplication = connectToGateway(archive)
+    
+    let firstWrite = true;
+
     archive.db.watch(() => {
       console.log('Archive updated:', archive.key.toString('hex'))
       dumpWriters(archive)
       // readShoppingList()
       readDirHello(archive)
+
+      if (firstWrite) { 
+        firstWrite = false
+        setTimeout( () => {
+          writeHello(archive, "hello from browser write")
+        }, 4000)
+      }
 
     })    
   })
@@ -77,6 +64,21 @@ function store (state, emitter) {
       toast('hello-world.txt updated')
       console.log(`...hello-world.txt:\n${txt}`)
       emitter.emit('render')
+    })
+  }
+
+  let writeHello = (archive, msg = "") => {
+    archive.readFile('/hello-world.txt', (err, txt) => {
+      if (err) throw err
+      msg = txt + '\n' + msg
+      toast('writing to hello-world.txt')
+      console.log(`writing to hello-world.txt:\n${msg}`)
+      
+      archive.writeFile('/hello-world.txt', msg, (err) => {
+        if (err) throw err
+        console.log("write ok")
+      })
+      // emitter.emit('render')
     })
   }
 

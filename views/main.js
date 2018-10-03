@@ -13,10 +13,26 @@ const prefix = css`
 module.exports = mainView
 
 function mainView (state, emit) {
-  console.dir(state)
+  // console.dir(state)
   let list
   let footer
   if (state.list.length === 0) {
+    
+    if (state.archive){
+      window.archive = state.archive
+      window.archiveAuth = (remoteKeyString) => {
+        let remoteKey = Buffer.from(remoteKeyString, 'hex')
+        state.archive.db.authorize(remoteKey, function (err) {
+          if (err) console.log(err)
+          state.archive.db.authorized(remoteKey, function (err, authorized) {
+            if (err) console.log(err)
+            if (!authorized) console.log('Authorization failed')
+            console.log('Authorization succeeded.')
+          })
+        })
+      }
+    }
+
     list = html`<section id="main"><p>Loading...</p></section>`
   } else {
     list = html`

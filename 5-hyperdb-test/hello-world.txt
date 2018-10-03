@@ -1,3 +1,6 @@
 hello from dat-test-4 foo
 
-WOOOOOOOT
+don't forget to regenerate dat if you get wierd errors
+
+hello from browser write
+
