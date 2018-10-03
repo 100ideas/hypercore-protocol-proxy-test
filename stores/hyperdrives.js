@@ -16,12 +16,13 @@ function store (state, emitter) {
   state.archive = {}
   state.key = ''
 
-  // const key = 'db9373f3fdb5fe3a0ee0a3169277673f50d9fdedab028173aacccb057cade453' // 5-hyperdb-test
   // const archive = hyperdriveNext(ram, {live: true})
   // const archive = hyperdriveNext(ram, {encrypt:false, live: true})
   
   const {publicKey: key, secretKey} = crypto.keyPair()
-  const archive = hyperdriveNext(ram, key, {secretKey})
+  const remotekey = '65acfa8c688d72eb37c036960ec135c64e0421634a3086f687f7b4a4bfe77122' // 5-hyperdb-test
+  // const archive = hyperdriveNext(ram, key, {secretKey}
+  const archive = hyperdriveNext(ram, remotekey)
   archive.ready(() => {
     console.log('hyperdrive ready')
     console.log('Local key:', archive.db.local.key.toString('hex'))
