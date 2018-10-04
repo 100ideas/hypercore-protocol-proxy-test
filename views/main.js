@@ -20,6 +20,7 @@ function mainView (state, emit) {
 
     list = html`<section id="main"><p>Loading...</p></section>`
   } else {
+    window.archive = state.archive ? state.archive : null
     list = html`
       <section id="main">
         <ul>
@@ -40,6 +41,7 @@ function mainView (state, emit) {
   return html`
     <body class=${prefix}>
       <h1>hypercore-protocol-proxy test</h1>
+      <img src="imgproxy/smallimage.png">
       <img src="collections/smallimage.png">
       ${list}
       ${footer}
