@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 .less*
 dat-test-4
+5-hyperdb-test/

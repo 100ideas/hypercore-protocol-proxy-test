@@ -66,6 +66,9 @@ function gateway (router) {
         handshakeTimeout: 8000
       })
 
+      // maybe replace w/ autoauth?
+      //   https://github.com/cblgh/hyperdb-examples/blob/master/index.js#L55
+      //   https://github.com/karissa/hyperdiscovery/pull/12#pullrequestreview-95597621
       router.ws('/serverkey', (ws, req, next) => {
         // console.log("ws:/serverkey:", req.method, req.url);
         ws.on('message', function(msg) {

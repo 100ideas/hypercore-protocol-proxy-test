@@ -9,6 +9,7 @@ const compression = require('compression')
 const mkdirp = require('mkdirp')
 const gateway = require('./gateway')
 const redirectToHttps = require('./middleware/redirectToHttps')
+const serviceWorkerNoCache = require('./middleware/serviceWorkerNoCache')
 
 require('events').prototype._maxListeners = 0
 
@@ -52,6 +53,7 @@ function runBudo () {
     },
     middleware: [
       compression(),
+      serviceWorkerNoCache,
       redirectToHttps,
       express.static('img'),
       router

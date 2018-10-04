@@ -803,6 +803,12 @@ chokidar@^1.0.0, chokidar@^1.0.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
+choo-service-worker@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/choo-service-worker/-/choo-service-worker-2.4.0.tgz#ef65380d8e0271f1c1e691ddff5a0eda0334e0c0"
+  dependencies:
+    xtend "^4.0.1"
+
 choo@^6.12.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/choo/-/choo-6.13.0.tgz#34d1a1645a51b60b8db8e942880d4d7b7130e066"
