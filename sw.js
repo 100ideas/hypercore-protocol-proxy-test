@@ -123,9 +123,9 @@ self.addEventListener('fetch', function(event) {
               // HACK until 'path' module
               
               console.log('sw: intercepting req for', event.request.url)
-              console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
+              console.log(`returning dat archive.readFile( ${archivePath} )`)
 
-              self.archive.readFile(archivePath, (err, body) => {
+              self.archive.readFile(archivePath, 'base64', (err, body) => {
                 if (err) { console.error(err); return err }
                 console.log('#######\nsw: got file from dat archive', archivePath, body)
                 // body = {}
@@ -134,13 +134,14 @@ self.addEventListener('fetch', function(event) {
                 // const imageBlob = new Blob([body], {type: 'image/jpeg'});
                 // let response = new Response(imageBlob)
                 
-                let body = convertDataURIToBinary(scienceDataURI)
+                // _body = convertDataURIToBinary(scienceDataURI)
+                let _body = 'data:image/jpeg;base64,' + body
                 let response = new Response(body, init)
                 resolve(response)
               })
             
             }).catch((err) => {
-              console.error('ws: fetch err:', err)
+              console.error('sw: fetch err:', err)
             })
           )
         }

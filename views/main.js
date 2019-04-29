@@ -14,7 +14,7 @@ const imgExts = new Set(['png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff']);
 
 let makeImgTag = (imgSrc) => {
   let ext = imgSrc.substring(imgSrc.lastIndexOf('.') + 1).toLowerCase() || ''
-  return imgExts.has(ext) ? html`<p><img src=${imgSrc} /></p>` : ''
+  return imgExts.has(ext) ? html`<p><img src=/${imgSrc} /></p>` : ''
 }
 
 function mainView (state, emit) {
@@ -57,7 +57,7 @@ function mainView (state, emit) {
     <body class=${prefix}>
       <h1>hypercore-protocol-proxy test</h1>
       <img src="imgproxy/smallimage.png">
-      <img src="collections/smallimage.png">
+      <img src="collections/scienceimage.png">
       
       ${list}  
       
