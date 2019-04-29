@@ -700,6 +700,10 @@ buffer-fill@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/buffer-fill/-/buffer-fill-1.0.0.tgz#f8f78b76789888ef39f205cd637f68e702122b2c"
 
+buffer-from@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-0.1.2.tgz#15f4b9bcef012044df31142c14333caf6e0260d0"
+
 buffer-from@^1.0.0, buffer-from@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
@@ -803,6 +807,30 @@ chokidar@^1.0.0, chokidar@^1.0.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
+choo-devtools@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/choo-devtools/-/choo-devtools-2.5.1.tgz#726568fe494e3a36a3603e15e41e7330b06095db"
+  dependencies:
+    choo-hooks "^1.0.0"
+    clone "^2.1.1"
+    global "^4.3.2"
+    nanologger "^1.3.1"
+    nanoscheduler "^1.0.0"
+    object-change-callsite "^1.0.2"
+    on-performance "^1.2.1"
+    plucker "0.0.0"
+    prettier-bytes "^1.0.4"
+    remove-array-items "^1.0.0"
+    state-copy "^1.0.2"
+    wayfarer "^6.6.2"
+
+choo-hooks@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/choo-hooks/-/choo-hooks-1.1.1.tgz#6da1f491d7f47154e3a021ba3d2c535718697e70"
+  dependencies:
+    nanoscheduler "^1.0.0"
+    on-performance "^1.0.1"
+
 choo-service-worker@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/choo-service-worker/-/choo-service-worker-2.4.0.tgz#ef65380d8e0271f1c1e691ddff5a0eda0334e0c0"
@@ -853,6 +881,10 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
+
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
 
 co@^4.6.0:
   version "4.6.0"
@@ -994,6 +1026,10 @@ cookie@0.3.1:
 copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
+
+copy-text-to-clipboard@^1.0.2:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/copy-text-to-clipboard/-/copy-text-to-clipboard-1.0.4.tgz#2286ff6c53495962c5318d34746d256939069c49"
 
 core-util-is@1.0.2, "core-util-is@>=1.0.1 <1.1.0-0", core-util-is@~1.0.0:
   version "1.0.2"
@@ -1638,6 +1674,10 @@ fast-json-stable-stringify@^2.0.0:
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
+
+fast-safe-stringify@^1.2.0:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.2.3.tgz#9fe22c37fb2f7f86f06b8f004377dbf8f1ee7bc1"
 
 fd-read-stream@^1.1.0:
   version "1.1.0"
@@ -2858,6 +2898,12 @@ nanoiterator@^1.1.0:
     inherits "^2.0.3"
     readable-stream "^2.3.3"
 
+nanologger@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/nanologger/-/nanologger-1.3.1.tgz#da8167887f21ee5f2d881bfe5b075ceb6c595ca9"
+  dependencies:
+    xtend "^4.0.1"
+
 nanolru@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/nanolru/-/nanolru-1.0.0.tgz#0a5679cd4e4578c4ca3741e610b71c4c9b5afaf8"
@@ -2903,7 +2949,7 @@ nanorouter@^3.0.1:
     nanoassert "^1.1.0"
     wayfarer "^6.6.3"
 
-nanoscheduler@^1.0.2:
+nanoscheduler@^1.0.0, nanoscheduler@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/nanoscheduler/-/nanoscheduler-1.0.3.tgz#6ca027941bf3e04139ea4bab6227ea6ad803692f"
   dependencies:
@@ -2953,7 +2999,7 @@ network-address@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/network-address/-/network-address-1.1.2.tgz#4aa7bfd43f03f0b81c9702b13d6a858ddb326f3e"
 
-next-tick@1:
+next-tick@1, next-tick@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
@@ -3045,6 +3091,10 @@ object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
+object-change-callsite@^1.0.2:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/object-change-callsite/-/object-change-callsite-1.0.5.tgz#c70a2d086dc0c6a1612ea8416ef7320ac3f5b358"
+
 object-copy@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/object-copy/-/object-copy-0.1.0.tgz#7e7d858b781bd7c991a41ba975ed3812754e998c"
@@ -3092,6 +3142,13 @@ on-load@^3.3.4:
   dependencies:
     global "^4.3.2"
     nanoassert "^1.1.0"
+
+on-performance@^1.0.1, on-performance@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/on-performance/-/on-performance-1.2.2.tgz#47a1a1cf6b1e1933baaf2e62be3347ed3aa7f641"
+  dependencies:
+    nanoassert "^1.1.0"
+    nanoscheduler "^1.0.0"
 
 once@^1.3.0, once@^1.3.1, once@^1.3.2, once@^1.4.0:
   version "1.4.0"
@@ -3262,6 +3319,10 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
+plucker@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/plucker/-/plucker-0.0.0.tgz#2ffa24e03ab2cffa4e75adc1df70f25623c45d09"
+
 plur@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/plur/-/plur-1.0.0.tgz#db85c6814f5e5e5a3b49efc28d604fec62975156"
@@ -3424,6 +3485,18 @@ random-access-file@^2.0.1:
   dependencies:
     mkdirp "^0.5.1"
     random-access-storage "^1.1.1"
+
+random-access-idb@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/random-access-idb/-/random-access-idb-1.0.4.tgz#67341c0df8e65adf432ee42effdf61a528f0f829"
+  dependencies:
+    abstract-random-access "^1.1.2"
+    buffer-alloc "^1.1.0"
+    buffer-from "^0.1.1"
+    inherits "^2.0.3"
+    mutexify "^1.1.0"
+    next-tick "^1.0.0"
+    once "^1.4.0"
 
 random-access-memory@^3.0.0:
   version "3.0.0"
@@ -3954,6 +4027,13 @@ stacked@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stacked/-/stacked-1.1.1.tgz#2c7fa38cc7e37a3411a77cd8e792de448f9f6975"
 
+state-copy@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/state-copy/-/state-copy-1.0.2.tgz#b4cfedc091b296c64540c404cc2fe59ba228904f"
+  dependencies:
+    copy-text-to-clipboard "^1.0.2"
+    fast-safe-stringify "^1.2.0"
+
 static-eval@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/static-eval/-/static-eval-2.0.0.tgz#0e821f8926847def7b4b50cda5d55c04a9b13864"
@@ -4450,7 +4530,7 @@ watchify-middleware@^1.8.0:
     strip-ansi "^3.0.0"
     watchify "^3.3.1"
 
-watchify@^3.3.1:
+watchify@^3.11.0, watchify@^3.3.1:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/watchify/-/watchify-3.11.0.tgz#03f1355c643955e7ab8dcbf399f624644221330f"
   dependencies:
@@ -4462,7 +4542,7 @@ watchify@^3.3.1:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-wayfarer@^6.6.3:
+wayfarer@^6.6.2, wayfarer@^6.6.3:
   version "6.6.4"
   resolved "https://registry.yarnpkg.com/wayfarer/-/wayfarer-6.6.4.tgz#3f67ddd79068dc7b96830d03d1f5c7423140b429"
   dependencies:
@@ -4478,6 +4558,10 @@ websocket-stream@^5.1.2:
     safe-buffer "^5.1.1"
     ws "^3.2.0"
     xtend "^4.0.0"
+
+webworkify@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/webworkify/-/webworkify-1.5.0.tgz#734ad87a774de6ebdd546e1d3e027da5b8f4a42c"
 
 which@^1.2.9, which@^1.3.1:
   version "1.3.1"

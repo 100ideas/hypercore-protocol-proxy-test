@@ -1,4 +1,5 @@
 // const hyperdrive = require('hyperdrive')
+const rai = require('random-access-idb')
 const hyperdriveNext = require('@jimpick/hyperdrive-next')
 const ram = require('random-access-memory')
 const crypto = require('hypercore/lib/crypto')
@@ -25,12 +26,15 @@ function store (state, emitter) {
   // Connection opened
   keysocket.addEventListener('open', function (event) {
     console.log("keysocket connected")
-    keysocket.send('Hello Server!');
+    keysocket.send('Hello Server!')
   });
   // Listen for messages
   keysocket.addEventListener('message', function (event) {
-    console.log('Message from server ', event);
-    state.serverDK = event.data;
+    // return {serverDK, name} message; parse; add to state.documents[]
+    console.log('Message from server ', event)
+    state.serverDK = event.data
+    state.archiveName = "unnamed"
+    state.shortKey = state.serverDK.slice(0,8)
     initArchive()
   });
 
@@ -44,13 +48,16 @@ function store (state, emitter) {
   function initArchive(){
     // let secretKey = Buffer.from('65acfa8c688d72eb37c036960ec135c64e0421634a3086f687f7b4a4bfe77122', 'hex')
     // const archive = hyperdriveNext(ram, state.serverDK, {secretKey})
-    const archive = hyperdriveNext(ram, state.serverDK)
+    
+    const storage = rai(`doc-${state.serverDK}`)
+    const archive = hyperdriveNext(storage, state.serverDK)
     archive.ready(() => {
       console.log('hyperdrive ready')
       console.log('Local key:', archive.db.local.key.toString('hex'))
-      state.key = archive.key
+      state.key = archive.key.toString('hex')
       state.archive = archive
-      emitter.emit('render')
+
+      emitter.emit('writeNewDocumentRecord', state.key, state.archiveName)
       
       if (state.cancelGatewayReplication) state.cancelGatewayReplication()
       state.cancelGatewayReplication = connectToGateway(archive)
@@ -70,7 +77,7 @@ function store (state, emitter) {
           }, 4000)
         }
 
-      })    
+      })
     })
   }
 
@@ -113,4 +120,5 @@ function store (state, emitter) {
       emitter.emit('render')
     }, 4000)
   }
+  
 }

@@ -1,0 +1,7 @@
+{
+  "eslint.enable": false,
+  "prettier.semi": false,
+  "prettier.alignObjectProperties": true,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false
+}

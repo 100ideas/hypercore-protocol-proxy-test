@@ -17,7 +17,6 @@ function mainView (state, emit) {
   let list
   let footer
   if (state.list.length === 0) {
-
     list = html`<section id="main"><p>Loading...</p></section>`
   } else {
     window.archive = state.archive ? state.archive : null
