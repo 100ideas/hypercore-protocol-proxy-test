@@ -104,10 +104,10 @@ self.addEventListener('fetch', function(event) {
         // TODO need to re-pack src to include 'path' module at top
         // let archivePath = '/' + path.parse(event.request.url).base
         // HACK until 'path' module
-        let archivePath = '/' + event.request.url.substring(request.url.lastIndexOf('/') + 1)
+        let archivePath = '/' + event.request.url.substring(event.request.url.lastIndexOf('/') + 1)
         
         console.log('sw: intercepting req for', event.request.url)
-        console.log(`returning dat archive.readFile('${ archivePath }') --> (Uint8Array)`)
+        console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
 
         self.archive.readFile(archivePath, (err, body) => {
           if (err) { console.error(err); return err }
