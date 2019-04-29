@@ -2,7 +2,7 @@
   "name": "hypercore-protocol-proxy-test",
   "version": "0.0.1",
   "description": "Trying out hypercore-protocol-proxy-test in a web page",
-  "author": "Jim Pick (@jimpick)",
+  "author": "100ideas adapted from Jim Pick (@jimpick)",
   "main": "server/index.js",
   "bin": {
     "dat-shopping-list": "./server/index.js"

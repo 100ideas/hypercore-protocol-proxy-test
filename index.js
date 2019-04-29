@@ -66,8 +66,6 @@ app.use((state, emitter) => {
     // Send the message to the service worker.
     navigator.serviceWorker.controller.postMessage(message.value)
   })
-
-  // emitter.on('pushState', )
 })
 
 app.mount('body')

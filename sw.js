@@ -91,34 +91,38 @@ self.addEventListener('fetch', function(event) {
       })
     )
   } else {
-    // console.log('sw self._docs ???', JSON.stringify(self.archive, null, 2))
+    console.log('sw self._docs ???', JSON.stringify(self.archive, null, 2))
     // self._docs.readdir('/', (e, l) => console.log("sw: ...readdir", l))
     console.log('sw: readdir in self.archive ?', 'readdir' in self.archive)
-    'readdir' in self.archive ? self.archive.readdir('/', (err, res) => console.log(res)) : console.log('sw: dat archive failed to init')
+    if ('readdir' in self.archive) {
+      self.archive.readdir('/', (err, res) => console.log(res))
   
-    event.respondWith(
-      new Promise((resolve) => {
-        // headers
-        let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
+      event.respondWith(
+        new Promise((resolve) => {
+          // headers
+          let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
         
-        // TODO need to re-pack src to include 'path' module at top
-        // let archivePath = '/' + path.parse(event.request.url).base
-        // HACK until 'path' module
-        let archivePath = '/' + event.request.url.substring(event.request.url.lastIndexOf('/') + 1)
+          // TODO need to re-pack src to include 'path' module at top
+          // let archivePath = '/' + path.parse(event.request.url).base
+          // HACK until 'path' module
+          let archivePath = event.request.url.substring(event.request.url.lastIndexOf('/'))
         
-        console.log('sw: intercepting req for', event.request.url)
-        console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
+          console.log('sw: intercepting req for', event.request.url)
+          console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
 
-        self.archive.readFile(archivePath, (err, body) => {
-          if (err) { console.error(err); return err }
-          let response = new Response(body, init)
-          resolve(response)
-        })
+          self.archive.readFile(archivePath, (err, body) => {
+            if (err) { console.error(err); return err }
+            let response = new Response(body, init)
+            resolve(response)
+          })
         
-      }).catch((err) => {
-        console.error('ws: fetch err:', err)
-      })
-    )
+        }).catch((err) => {
+          console.error('ws: fetch err:', err)
+        })
+      )
+    } else {
+      console.log('sw: dat archive init fail')
+    }
   }
 })
 
