@@ -17,8 +17,8 @@ function store (state, emitter) {
       if (state.documents.find(doc => doc.key === keyHex)) return
       writeDocumentRecord(keyHex, docName, err => {
         if (err) throw err
-        // emitter.emit('pushState', `/doc/${keyHex}`)
-        emitter.emit('pushState', {docName: keyHex})
+        emitter.emit('pushState', `/doc/${keyHex}`)
+        // emitter.emit('pushState', {docName: keyHex})
       })
     })
   })

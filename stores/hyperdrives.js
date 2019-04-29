@@ -68,7 +68,7 @@ function store (state, emitter) {
           firstWrite = false
           setTimeout( () => {
             appendHello(archive, "hello from browser write")
-          }, 2000)
+          }, 4000)
         }
 
       })

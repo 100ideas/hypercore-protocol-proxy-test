@@ -15,6 +15,11 @@ self.addEventListener('sync', function (event) {
   sendMessage(event, 'render')
   self.registration.showNotification(event.tag)
 })
+  
+self.addEventListener('render', function (event) {
+  // noop
+  console.log('sw: received render msg')
+})
 
 function sendMessage (e, msg) {
   if (e.source && typeof e.source.postMessage === 'function') {
@@ -47,7 +52,7 @@ self.addEventListener('fetch', function(event) {
     console.log('sw: creating response for', event.request.url)
     event.respondWith(
       new Promise((resolve) => {
-        console.log(':sw intercepting req for', event.request.url)
+        console.log('sw: intercepting req for', event.request.url)
 
         // headers
         let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
@@ -91,35 +96,55 @@ self.addEventListener('fetch', function(event) {
       })
     )
   } else {
-    console.log('sw self._docs ???', JSON.stringify(self.archive, null, 2))
-    // self._docs.readdir('/', (e, l) => console.log("sw: ...readdir", l))
-    console.log('sw: readdir in self.archive ?', 'readdir' in self.archive)
+    console.log('sw: dat archive init? (readdir in self.archive?)', 'readdir' in self.archive)
     if ('readdir' in self.archive) {
-      self.archive.readdir('/', (err, res) => console.log(res))
-  
-      event.respondWith(
-        new Promise((resolve) => {
-          // headers
-          let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
-        
-          // TODO need to re-pack src to include 'path' module at top
-          // let archivePath = '/' + path.parse(event.request.url).base
-          // HACK until 'path' module
-          let archivePath = event.request.url.substring(event.request.url.lastIndexOf('/'))
-        
-          console.log('sw: intercepting req for', event.request.url)
-          console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
+      self.archive.readdir('/', function(err, res) {
+        let archivePath = event.request.url.substring(event.request.url.lastIndexOf('/')) // includes root '/'
+        let inArchive = res.filter(path => path.includes(archivePath.substring(1) )).length > 0  // exclude root '/'
+        console.log('sw: resource in archive?', inArchive, archivePath, res)
 
-          self.archive.readFile(archivePath, (err, body) => {
-            if (err) { console.error(err); return err }
-            let response = new Response(body, init)
-            resolve(response)
-          })
+        if (inArchive) {
         
-        }).catch((err) => {
-          console.error('ws: fetch err:', err)
-        })
-      )
+          event.respondWith(
+            new Promise((resolve) => {
+              // headers
+              // let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
+              let init = {
+                status: 200,
+                statusText: 'ok',
+                headers: {
+                  'content-type': 'image/jpeg',
+                  'content-encoding': 'identity'
+                }
+              }
+            
+              // TODO need to re-pack src to include 'path' module at top
+              // let archivePath = '/' + path.parse(event.request.url).base
+              // HACK until 'path' module
+              
+              console.log('sw: intercepting req for', event.request.url)
+              console.log(`returning dat archive.readFile( ${archivePath} ) --> (Uint8Array)`)
+
+              self.archive.readFile(archivePath, (err, body) => {
+                if (err) { console.error(err); return err }
+                console.log('#######\nsw: got file from dat archive', archivePath, body)
+                // body = {}
+                // let response = new Response(body, init)
+
+                // const imageBlob = new Blob([body], {type: 'image/jpeg'});
+                // let response = new Response(imageBlob)
+                
+                let body = convertDataURIToBinary(scienceDataURI)
+                let response = new Response(body, init)
+                resolve(response)
+              })
+            
+            }).catch((err) => {
+              console.error('ws: fetch err:', err)
+            })
+          )
+        }
+      })
     } else {
       console.log('sw: dat archive init fail')
     }
@@ -129,7 +154,7 @@ self.addEventListener('fetch', function(event) {
 async function getHyperAdapter() {
   let docs = await openDocumentsDB((idb) => {
     console.log('####\nsw: got archive keys from idb', self.documents.map(doc => `doc key: ${doc.key}`))
-    let archiveKey = self.documents[0].key || 'MISSING_DAT_KEY'
+    let archiveKey = self.documents && self.documents[0].key || 'MISSING_DAT_KEY'
     console.log('####... selecting most recent: ', archiveKey)
 
     // const storage = rai(`doc-${archiveKey}`, {idb: idb})
