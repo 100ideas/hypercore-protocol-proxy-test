@@ -21,6 +21,7 @@ function store (state, emitter) {
   state.status = ''
   state.archive = {}
   state.key = ''
+  state.archiveReady = false
 
   const keysocket = new WebSocket(url)
   // Connection opened
@@ -34,20 +35,11 @@ function store (state, emitter) {
     console.log('Message from server ', event)
     state.serverDK = event.data
     state.archiveName = "unnamed"
-    state.shortKey = state.serverDK.slice(0,8)
+    state.shortKey = state.serverDK.slice(0, 8)
     initArchive()
   });
 
-  // const archive = hyperdriveNext(ram, {live: true})
-  // const archive = hyperdriveNext(ram, {encrypt:false, live: true})
-  
-  // const {publicKey: key, secretKey} = crypto.keyPair()
-  // const remotekey = '65acfa8c688d72eb37c036960ec135c64e0421634a3086f687f7b4a4bfe77122' // 5-hyperdb-test
-  // const archive = hyperdriveNext(ram, key, {secretKey}
-  // const archive = hyperdriveNext(ram, remotekey)
   function initArchive(){
-    // let secretKey = Buffer.from('65acfa8c688d72eb37c036960ec135c64e0421634a3086f687f7b4a4bfe77122', 'hex')
-    // const archive = hyperdriveNext(ram, state.serverDK, {secretKey})
     
     const storage = rai(`doc-${state.serverDK}`)
     const archive = hyperdriveNext(storage, state.serverDK)
@@ -56,6 +48,8 @@ function store (state, emitter) {
       console.log('Local key:', archive.db.local.key.toString('hex'))
       state.key = archive.key.toString('hex')
       state.archive = archive
+      state.archiveReady = true
+      emitter.emit('render')
 
       emitter.emit('writeNewDocumentRecord', state.key, state.archiveName)
       
@@ -73,8 +67,8 @@ function store (state, emitter) {
         if (firstWrite) { 
           firstWrite = false
           setTimeout( () => {
-            writeHello(archive, "hello from browser write")
-          }, 4000)
+            appendHello(archive, "hello from browser write")
+          }, 2000)
         }
 
       })
@@ -98,7 +92,7 @@ function store (state, emitter) {
     })
   }
 
-  let writeHello = (archive, msg = "") => {
+  let appendHello = (archive, msg = "") => {
     archive.readFile('/hello-world.txt', (err, txt) => {
       if (err) throw err
       msg = txt + '\n' + msg
@@ -112,6 +106,25 @@ function store (state, emitter) {
       // emitter.emit('render')
     })
   }
+
+  let replaceLastLineHello = (archive, msg = "") => {
+    archive.readFile('/hello-world.txt', (err, txt) => {
+      if (err) throw err
+      txt = ('' + txt).split('\n').slice(0, -1)      
+      txt = txt.join('\n') + msg
+      
+      toast(`replacing last line of hello-world.txt with: ${msg}`)
+      console.log(`replacing last line of hello-world.txt with:\n${msg}`)
+      
+      archive.writeFile('/hello-world.txt', txt, (err) => {
+        if (err) throw err
+        console.log("write ok")
+      })
+      // emitter.emit('render')
+    })
+  }
+
+  emitter.on('deleteHelloWorldLine', () => replaceLastLineHello(state.archive) )
 
   let toast = (msg) => {
     state.status = msg ? msg : 'update...'

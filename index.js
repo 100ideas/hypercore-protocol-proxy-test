@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-service-worker/clear')())
   app.use(require('choo-devtools')())
 }
-app.use(chooServiceWorker('/sw-unbundled.js'))
+// app.use(chooServiceWorker('/sw-unbundled.js'))
+app.use(chooServiceWorker('/sw.js'))
 // app.use(chooServiceWorker())
 
 // app.use((state, emitter) => {
@@ -65,6 +66,8 @@ app.use((state, emitter) => {
     // Send the message to the service worker.
     navigator.serviceWorker.controller.postMessage(message.value)
   })
+
+  // emitter.on('pushState', )
 })
 
 app.mount('body')

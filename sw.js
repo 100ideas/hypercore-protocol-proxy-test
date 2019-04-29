@@ -31,7 +31,8 @@ function sendMessage (e, msg) {
 }
 
 //install??
-getHyperAdapter()
+self._archive = false;
+self.archive = (self._archive ? self._archive : self._archive = getHyperAdapter())
 
 self.addEventListener('message', function(event) {
   console.log('sw got a message:')
@@ -43,17 +44,17 @@ self.addEventListener('fetch', function(event) {
   console.log('sw checking req for', event.request.url)
 
   if (event.request.url.indexOf('collections') !== -1) {
-    console.log('sw creating response for', event.request.url)
+    console.log('sw: creating response for', event.request.url)
     event.respondWith(
       new Promise((resolve) => {
-        console.log('sw intercepting req for', event.request.url)
+        console.log(':sw intercepting req for', event.request.url)
 
         // headers
         let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
         let body = convertDataURIToBinary(scienceDataURI) // returns Uint8Array
         // TODO await get image from dat indexdb
 
-        console.log('returning datauri -> Uint8Array')
+        console.log('sw: returning datauri -> Uint8Array')
         // body should be Blob, BUfferSource, ReadableStream, or USVString
         // let response = new Response(body, init)
         let response = new Response(body, init)
@@ -66,7 +67,7 @@ self.addEventListener('fetch', function(event) {
   }
 
   if (event.request.url.indexOf('imgproxy') !== -1) {
-    console.log('sw creating response for', event.request.url)
+    console.log('sw: creating response for', event.request.url)
     event.respondWith(
       new Promise((resolve) => {
         fetch('img/xkcd.jpg')
@@ -89,45 +90,77 @@ self.addEventListener('fetch', function(event) {
           })
       })
     )
+  } else {
+    // console.log('sw self._docs ???', JSON.stringify(self.archive, null, 2))
+    // self._docs.readdir('/', (e, l) => console.log("sw: ...readdir", l))
+    console.log('sw: readdir in self.archive ?', 'readdir' in self.archive)
+    'readdir' in self.archive ? self.archive.readdir('/', (err, res) => console.log(res)) : console.log('sw: dat archive failed to init')
+  
+    event.respondWith(
+      new Promise((resolve) => {
+        // headers
+        let init = { status: 200, statusText: 'ok', headers: { 'content-type': 'image/jpeg' } }
+        
+        // TODO need to re-pack src to include 'path' module at top
+        // let archivePath = '/' + path.parse(event.request.url).base
+        // HACK until 'path' module
+        let archivePath = '/' + event.request.url.substring(request.url.lastIndexOf('/') + 1)
+        
+        console.log('sw: intercepting req for', event.request.url)
+        console.log(`returning dat archive.readFile('${ archivePath }') --> (Uint8Array)`)
+
+        self.archive.readFile(archivePath, (err, body) => {
+          if (err) { console.error(err); return err }
+          let response = new Response(body, init)
+          resolve(response)
+        })
+        
+      }).catch((err) => {
+        console.error('ws: fetch err:', err)
+      })
+    )
   }
 })
 
 async function getHyperAdapter() {
-  let docs = await openDocumentsDB(() => {
-    console.log('sw: got archive keys from idb', self.documents)
-    return self.documents
+  let docs = await openDocumentsDB((idb) => {
+    console.log('####\nsw: got archive keys from idb', self.documents.map(doc => `doc key: ${doc.key}`))
+    let archiveKey = self.documents[0].key || 'MISSING_DAT_KEY'
+    console.log('####... selecting most recent: ', archiveKey)
+
+    // const storage = rai(`doc-${archiveKey}`, {idb: idb})
+    const storage = rai(`doc-${archiveKey}`, {idb: self.indexedDB})
+    self.archive = hyperdriveNext(storage)
+    return new Promise(resolve => {
+      self.archive.ready(() => {
+        console.log('\n\n##### sw: hyperdrive ready !!!')
+        self.archive.readdir('/', (err, list) => {
+          if (err) throw err
+          console.log("sw: ...readdir", list)
+        })
+        resolve(self.archive)
+      })
+    }), reject => console.error(`sw: error initing hyperdrive (rai(doc-${archiveKey})`)
   })
+  console.log ('\n####returning docs ', docs)
+  return docs
 }
 
-function openDocumentsDB(cb) {
+async function openDocumentsDB(cb) {
   // const request = self.indexedDB.open('documents', 2)
-  const request = self.indexedDB.open('documents')
+  const request = await self.indexedDB.open('documents')
   request.onerror = function(event) {
     console.log('IndexedDB error')
   }
   request.onsuccess = function(event) {
     self.documentsDB = event.target.result
-    console.log('read from idb:documents:', self.documentsDB ? self.documentsDB : 'missing!')
-    readDocuments(cb)
+    console.log('read from idb:documents:', self.documentsDB ? JSON.stringify(self.documentsDB, null, 2) : 'missing!')
+    readDocuments(cb, self.documentsDB)
   }
-  // request.onupgradeneeded = function (event) {
-  //   const db = event.target.result
-  //   let objectStore
-  //   if (event.oldVersion === 0) {
-  //     objectStore = db.createObjectStore('documents', {keyPath: 'key'})
-  //     objectStore.createIndex('name', 'name')
-  //   } else {
-  //     objectStore = event.target.transaction.objectStore('documents')
-  //   }
-  //   objectStore.createIndex('dateAdded', 'dateAdded')
-  //   objectStore.transaction.oncomplete = function (event) {
-  //     console.log('Document db created')
-  //   }
-  // }
 }
 
-function readDocuments(cb) {
-  const db = self.documentsDB
+function readDocuments(cb, idb) {
+  const db = idb
   if (!db) {
     console.log('sw: cant find self.documentsDB')
     return false
@@ -146,7 +179,7 @@ function readDocuments(cb) {
       self.documents.push(cursor.value)
       cursor.continue()
     } else {
-      cb()
+      cb(db)
     }
   }
 }
