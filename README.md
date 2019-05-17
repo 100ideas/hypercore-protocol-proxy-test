@@ -1,3 +1,8 @@
+# NOTE - see ipfs-service-worker-gateway
+https://github.com/ipfs-shipyard/service-worker-gateway/blob/master/src/index.js
+
+this code for IPFS was written by someone who knows how to set up service workers - review and profit
+
 # duplex connect hyperdrive (hyperdb multiwriter) fs <-> browser
 
 - https://gist.github.com/jimpick/2df9b96d1332e5e28bb626b8071e6677
